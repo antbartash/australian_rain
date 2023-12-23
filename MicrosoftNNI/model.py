@@ -5,6 +5,10 @@ from catboost import CatBoostClassifier
 import nni
 import logging
 
+# CatBoost installation on Google Colab
+import subprocess
+subprocess.run(['pip', 'install', 'catboost'], check=True)
+
 
 LOG = logging.getLogger('nni_lgbm')
 
