@@ -32,7 +32,7 @@ def get_default_parameters():
         'learning_rate': 0.3,
         'depth': 6,
         'l2_leaf_reg': 3,
-        # 'random_strength': 1.0, # CPU only
+        'random_strength': 1.0, # CPU only
         'bagging_temperature': 1.0,
         'grow_policy': 'SymmetricTree',
         'scale_pos_weight': 1.0
@@ -42,7 +42,7 @@ def get_default_parameters():
 def get_model(PARAMS):
     model = CatBoostClassifier(
         cat_features=['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm'],
-        random_state=42, verbose=False, task_type='GPU'
+        random_state=42, verbose=False, # task_type='GPU'
     )
     model.set_params(**PARAMS)
     return model
