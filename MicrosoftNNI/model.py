@@ -1,3 +1,8 @@
+# CatBoost installation on Google Colab
+import subprocess
+subprocess.run(['pip', 'install', 'catboost'], check=True)
+
+
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -5,9 +10,6 @@ from catboost import CatBoostClassifier
 import nni
 import logging
 
-# CatBoost installation on Google Colab
-import subprocess
-subprocess.run(['pip', 'install', 'catboost'], check=True)
 
 
 LOG = logging.getLogger('nni_lgbm')
