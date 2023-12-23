@@ -1,6 +1,6 @@
-# CatBoost installation on Google Colab
-import subprocess
-subprocess.run(['pip', 'install', 'catboost'], check=True)
+# # CatBoost installation on Google Colab
+# import subprocess
+# subprocess.run(['pip', 'install', 'catboost'], check=True)
 
 
 import numpy as np
@@ -21,6 +21,9 @@ def load_data():
     )
     X, y = data.drop(columns=['RainTomorrow', 'RainToday']), data['RainTomorrow']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    for column in ['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']:
+        X_train[column] = X_train[column].astype(np.float32).fillna(-1).apply(lambda x: str(x))
+        X_test[column] = X_test[column].astype(np.float32).fillna(-1).apply(lambda x: str(x))
     return X_train, X_test, y_train, y_test
 
 def get_default_parameters():
