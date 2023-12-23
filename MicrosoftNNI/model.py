@@ -1,6 +1,6 @@
-# # CatBoost installation on Google Colab
-# import subprocess
-# subprocess.run(['pip', 'install', 'catboost'], check=True)
+# CatBoost installation on Google Colab
+import subprocess
+subprocess.run(['pip', 'install', 'catboost'], check=True)
 
 
 import numpy as np
