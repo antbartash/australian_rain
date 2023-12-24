@@ -6,7 +6,7 @@ subprocess.run(['pip', 'install', 'catboost'], check=True)
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
-from catboost import CatBoostClassifier, Pool
+from catboost import CatBoostClassifier
 import nni
 import logging
 import json
@@ -28,15 +28,13 @@ def load_data():
     return X_train, X_test, y_train, y_test
 
 
-
-
 def get_default_parameters():
     params = {
         'n_estimators': 100,
         'learning_rate': 0.3,
         'depth': 6,
         'l2_leaf_reg': 3,
-        # 'random_strength': 1.0, # CPU only
+        'random_strength': 1.0, # CPU only
         'bagging_temperature': 1.0,
         'grow_policy': 'SymmetricTree',
         'scale_pos_weight': 1.0,
@@ -48,7 +46,7 @@ def get_model(PARAMS):
     model = CatBoostClassifier(
         cat_features=['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm'],
         custom_metric='AUC:hints=skip_train~false',
-        random_state=42, verbose=False, task_type='GPU'
+        random_state=42, verbose=False#, task_type='GPU'
     )
     model.set_params(**PARAMS)
     return model
