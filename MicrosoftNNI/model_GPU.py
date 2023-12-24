@@ -6,7 +6,7 @@ subprocess.run(['pip', 'install', 'catboost'], check=True)
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
-from catboost import CatBoostClassifier, Pool
+from catboost import CatBoostClassifier
 import nni
 import logging
 import json
@@ -47,7 +47,7 @@ def get_default_parameters():
 def get_model(PARAMS):
     model = CatBoostClassifier(
         cat_features=['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm'],
-        # custom_metric='AUC:hints=skip_train~false', # AUC is not implemented on GPU
+        custom_metric='BalancedAccuracy',
         random_state=42, verbose=False, task_type='GPU'
     )
     model.set_params(**PARAMS)
@@ -64,7 +64,7 @@ def run(X_train, y_train, model):
     for rowid in iterations.index:
         metrics = {
             'default': iterations.loc[rowid, 'learn'][0],
-            # 'AUC': iterations.loc[rowid, 'learn'][1] # AUC is not implemented on GPU
+            'BalancedAccuracy': iterations.loc[rowid, 'learn'][1] # AUC is not implemented on GPU
         }
         LOG.debug('mertics: ', metrics)
         nni.report_intermediate_result(metrics)
