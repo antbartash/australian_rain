@@ -1,5 +1,5 @@
 # Hyperparameter optimization (HPO)
-Repository with codes for HPO with the following methods and packages:
+Repository with codes for HPO with the following methods and packages: <br>
 
 Scikit:
  * scikit-learn: GridSearch, RandomSearch, HalvingSearch
